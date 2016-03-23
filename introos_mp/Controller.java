@@ -80,7 +80,7 @@ public class Controller
            case "5": CopyFile(); break;
            case "6": DeleteFile(); break;
            case "7": ChangeDirectory(); break;
-               
+           //TODO 8
            case "9": DuplicateFile(); break;
            default: System.out.println("Invalid choice");
                     DisplayMainMenu(); break;
