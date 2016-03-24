@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package introos_mp;
+package controller;
 
 import java.io.IOException;
 
+import view.Directory;
+
 /**
- *
- * @author Kingston
+ * The driver class.
  */
 public class Driver
 {
@@ -17,11 +18,10 @@ public class Driver
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException
-    {
-        Controller c = new Controller();
-        c.DisplayMainMenu();
-       
+    public static void main(String[] args) throws IOException {
+    	Controller c = new Controller();
+    	Directory dir = new Directory(c);
+		dir.setVisible(true);
     }
     
 }
