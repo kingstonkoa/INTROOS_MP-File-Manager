@@ -66,13 +66,12 @@ public class Controller {
      */
     public String displayAllFiles() throws IOException
     {
-        /* extra credits not done*/
-        //(Extra Credit) It should display how much space in the disk has been occupied and how much are unused.
-        //(Extra credit) It should display the percentage of space in the hard disk that is being consumed by each file. 
-//        String choice;
     	String filesDisplay = "";
         File folder = new File(directory);
         File[] listOfFiles = folder.listFiles();
+        File cDrive = new File("c:");
+        long totalSpace = cDrive.getTotalSpace();
+        System.out.println(totalSpace);
 
         for (int i = 0; i < listOfFiles.length; i++) {
           if (listOfFiles[i].isFile()) {
@@ -82,11 +81,14 @@ public class Controller {
                                 + " \nDate Modified: " + attr.lastModifiedTime() 
                                 + " \nOwner: " + Files.getOwner(listOfFiles[i].toPath()) 
                                 + " \nSize: " + readableFileSize(attr.size())
+                                + " \nPercentage: " + getPercentage(attr.size(), totalSpace) + "%"
             					+ "\n\n";
           } else if (listOfFiles[i].isDirectory()) {
             filesDisplay += "[" + (i+1) + "] " + "Folder: " + listOfFiles[i].getName() + "\n\n";
           }
         }
+        filesDisplay += "space occupied: "+ readableFileSize(getSize(folder))+ "\n";
+        filesDisplay += "space unused: " + readableFileSize(cDrive.getUsableSpace()) + "\n\n";
 //        System.out.println("[0] Back to Main Menu");        
 //        do
 //        {
@@ -103,11 +105,28 @@ public class Controller {
      * @param size unformatted file size
      * @return the formatted file size
      */
+    public static long getSize(File file) {
+    long size;
+    if (file.isDirectory()) {
+        size = 0;
+        for (File child : file.listFiles()) {
+            size += getSize(child);
+        }
+    } else {
+        size = file.length();
+    }
+    return size;
+    }
+    
     private static String readableFileSize(long size) {
         if(size <= 0) return "0";
         final String[] units = new String[] { "B", "kB", "MB", "GB", "TB" };
         int digitGroups = (int) (Math.log10(size)/Math.log10(1024));
         return new DecimalFormat("#,##0.#").format(size/Math.pow(1024, digitGroups)) + " " + units[digitGroups];
+    }
+    public static float getPercentage(long n, long total) {
+    float proportion = ((float) n) / ((float) total);
+    return proportion * 100;
     }
 
     /**

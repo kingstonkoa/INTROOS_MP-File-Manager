@@ -14,6 +14,8 @@
 **Extra Credit done**
 -  file size should be measured in the most applicable unit (extra credit)
 - The File manager should be able to duplicate a file in the same directory (extra credit)
+- It should display how much space in the disk has been occupied and how much are unused. (extra credit)
+- It should display the percentage of space in the hard disk that is being consumed by each file. (extra credit) 
 
 **Commands**
 
