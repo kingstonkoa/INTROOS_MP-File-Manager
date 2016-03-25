@@ -22,20 +22,14 @@ cd <path>
 Display files:
 dir
 
-Edit file name: * NO SPACES ALLOWED
-rename <filename with extension> <new filename w/o extension>
+Edit file name: rename <filename with extension> <new filename w/o extension>
 
-Edit file extension: * NO SPACES ALLOWED
-modifyext <filename with extension> <extension>
+Edit file extension: modifyext <filename with extension> <extension>
 
-Move file: * NO SPACES ALLOWED
-move <filename with extension> <directory>
+Move file: move <filename with extension> <directory>
 
-Copy file: * NO SPACES ALLOWED
-copy <filename with extension> <directory>
+Copy file: copy <filename with extension> <directory>
 
-Delete file: * NO SPACES ALLOWED
-del <filename with extension>
+Delete file: del <filename with extension>
 
-Duplicate file: * NO SPACES ALLOWED
-dup <filename with extension> 
+Duplicate file: dup <filename with extension> 
