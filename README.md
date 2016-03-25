@@ -16,20 +16,20 @@
 - The File manager should be able to duplicate a file in the same directory (extra credit)
 
 **Commands**
-Change directory:
-cd <path>
+
+Change directory: cd (path)
 
 Display files:
 dir
 
-Edit file name: rename <filename with extension> <new filename w/o extension>
+Edit file name: rename (filename with extension) (new filename w/o extension)
 
-Edit file extension: modifyext <filename with extension> <extension>
+Edit file extension: modifyext (filename with extension) (extension)
 
-Move file: move <filename with extension> <directory>
+Move file: move (filename with extension) (directory)
 
-Copy file: copy <filename with extension> <directory>
+Copy file: copy (filename with extension) (directory)
 
-Delete file: del <filename with extension>
+Delete file: del (filename with extension)
 
-Duplicate file: dup <filename with extension> 
+Duplicate file: dup (filename with extension) 
