@@ -377,8 +377,8 @@ public class Controller {
                     +" && "+removeFileExtension(listOfFiles[fileChosen].getName())+".exe");
             
             System.out.println("cmd /C cd "+directory + " && gcc "  +listOfFiles[fileChosen].getName()
-                    + "-o "+removeFileExtension(listOfFiles[fileChosen].getName())
-                    +"&& "+removeFileExtension(listOfFiles[fileChosen].getName())+".exe");
+                    + " -o "+removeFileExtension(listOfFiles[fileChosen].getName())
+                    +" && "+removeFileExtension(listOfFiles[fileChosen].getName())+".exe");
              
             BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));  
             String line = null;  
