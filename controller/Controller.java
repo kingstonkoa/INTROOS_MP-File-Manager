@@ -38,6 +38,17 @@ import java.util.logging.Logger;
  */
 public class Controller {
     String directory;
+    String cContens;
+
+    public String getcContens()
+    {
+        return cContens;
+    }
+
+    public void setcContens(String cContens)
+    {
+        this.cContens = cContens;
+    }
 
     /**
      * Gets the current directory of the File Manager.
@@ -362,6 +373,7 @@ public class Controller {
         int fileChosen;
         File folder = new File(directory);
         File[] listOfFiles = folder.listFiles();
+        String cContents = "";
         
 
      // check if file exists
@@ -379,8 +391,10 @@ public class Controller {
             BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));  
             String line = null;  
             while ((line = in.readLine()) != null) {  
-                System.out.println(line);  
-            }  
+                System.out.println(line);
+                cContents += line;
+            }
+            setcContens(cContents);
 
         }   catch (IOException ex)
             {
@@ -389,6 +403,7 @@ public class Controller {
         return true;
         }
     }
+    
 }
 
 
