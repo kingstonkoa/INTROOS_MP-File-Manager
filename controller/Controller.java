@@ -5,12 +5,14 @@
  */
 package controller;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,6 +22,8 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Implements the various tasks of the File Manager:
@@ -353,4 +357,44 @@ public class Controller {
         }
     }
 
+    public boolean runC(String fileName) throws FileNotFoundException, InterruptedException
+    {
+        int fileChosen;
+        File folder = new File(directory);
+        File[] listOfFiles = folder.listFiles();
+        
+
+     // check if file exists
+        fileChosen  = fileNameExists(listOfFiles, fileName);
+        if (fileChosen == -1) {
+        	return false;
+        } else {
+            try
+            {
+                
+            Process p = Runtime.getRuntime().exec("cmd /C cd "+directory + " && gcc "  +listOfFiles[fileChosen].getName()
+                    + " -o "+removeFileExtension(listOfFiles[fileChosen].getName())
+                    +" && "+removeFileExtension(listOfFiles[fileChosen].getName())+".exe");
+            
+            System.out.println("cmd /C cd "+directory + " && gcc "  +listOfFiles[fileChosen].getName()
+                    + "-o "+removeFileExtension(listOfFiles[fileChosen].getName())
+                    +"&& "+removeFileExtension(listOfFiles[fileChosen].getName())+".exe");
+             
+            BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));  
+            String line = null;  
+            while ((line = in.readLine()) != null) {  
+                System.out.println(line);  
+            }  
+
+        }   catch (IOException ex)
+            {
+                return false;
+            }
+        return true;
+        }
+    }
 }
+
+
+
+

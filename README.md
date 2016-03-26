@@ -7,9 +7,10 @@
 - move file
 - copy file
 - delete file
+- run a C program
 
 **Not Done**
-- run a C program
+
 
 **Extra Credit done**
 -  file size should be measured in the most applicable unit (extra credit)

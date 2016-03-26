@@ -18,6 +18,9 @@ import javax.swing.text.DocumentFilter;
 import controller.Controller;
 
 import java.awt.Font;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextArea;
 
 /**
@@ -162,6 +165,20 @@ public class Mainframe extends JFrame {
 							} catch (IOException e1) {
 								txtCLI.append("Error: Cannot find file or does not exist.\n");
 							}
+							txtCLI.append(commandOffset);
+							break;
+						case "run":
+							try {
+								String fileName = command.split(" ")[1];
+								if (controller.runC(fileName))
+									txtCLI.append("Successfully run.\n");
+								else txtCLI.append("Error: Cannot find file or does not exist.\n");
+							} catch (IOException e1) {
+								txtCLI.append("Error: Cannot find file or does not exist.\n");
+							} catch (InterruptedException ex)
+                                        {
+                                            Logger.getLogger(Mainframe.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
 							txtCLI.append(commandOffset);
 							break;
 							
