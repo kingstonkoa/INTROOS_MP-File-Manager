@@ -374,6 +374,7 @@ public class Controller {
         File folder = new File(directory);
         File[] listOfFiles = folder.listFiles();
         String cContents = "";
+        Process p = null;
         
 
      // check if file exists
@@ -383,11 +384,18 @@ public class Controller {
         } else {
             try
             {
+                if(getFileExtension(listOfFiles[fileChosen]).equals("c"))
+                {
                 
-            Process p = Runtime.getRuntime().exec("cmd /C cd "+directory + " && gcc "  +listOfFiles[fileChosen].getName()
+                 p = Runtime.getRuntime().exec("cmd /C cd "+directory + " && gcc "  +listOfFiles[fileChosen].getName()
                     + " -o "+removeFileExtension(listOfFiles[fileChosen].getName())
                     +" && "+removeFileExtension(listOfFiles[fileChosen].getName())+".exe");
-                         
+                }
+                else if(getFileExtension(listOfFiles[fileChosen]).equals("java"))
+                {
+                 p = Runtime.getRuntime().exec("cmd /C cd "+directory + " && javac "  +listOfFiles[fileChosen].getName()
+                    +" && java "+removeFileExtension(listOfFiles[fileChosen].getName()));
+                }
             BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));  
             String line = null;  
             while ((line = in.readLine()) != null) {  
@@ -401,6 +409,15 @@ public class Controller {
                 return false;
             }
         return true;
+        }
+    }
+    
+    private String getFileExtension(File file) {
+        String name = file.getName();
+        try {
+            return name.substring(name.lastIndexOf(".") + 1);
+        } catch (Exception e) {
+            return "";
         }
     }
     
