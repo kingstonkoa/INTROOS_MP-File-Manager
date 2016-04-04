@@ -87,16 +87,16 @@ public class Controller {
         File cDrive = new File("c:");
         long totalSpace = cDrive.getTotalSpace();
         System.out.println(totalSpace);
-
+        filesDisplay += "Name\tDate Created\tDate Modified\tOwner\tSize\tPercentage\n";
         for (int i = 0; i < listOfFiles.length; i++) {
           if (listOfFiles[i].isFile()) {
             BasicFileAttributes attr = Files.readAttributes(listOfFiles[i].toPath(), BasicFileAttributes.class);
-            filesDisplay += "[" + (i+1) + "] " + listOfFiles[i].getName() 
-                                + " \nDate Created: " + attr.creationTime()
-                                + " \nDate Modified: " + attr.lastModifiedTime() 
-                                + " \nOwner: " + Files.getOwner(listOfFiles[i].toPath()) 
-                                + " \nSize: " + readableFileSize(attr.size())
-                                + " \nPercentage: " + getPercentage(attr.size(), totalSpace) + "%"
+            filesDisplay += ""+listOfFiles[i].getName() 
+                                + "\t" + attr.creationTime()
+                                + "\t" + attr.lastModifiedTime() 
+                                + "\t" + Files.getOwner(listOfFiles[i].toPath()) 
+                                + "\t" + readableFileSize(attr.size())
+                                + "\t" + String.format("%f", getPercentage(attr.size(), totalSpace)) + "%"
             					+ "\n\n";
           } else if (listOfFiles[i].isDirectory()) {
             filesDisplay += "[" + (i+1) + "] " + "Folder: " + listOfFiles[i].getName() + "\n\n";
@@ -104,14 +104,7 @@ public class Controller {
         }
         filesDisplay += "space occupied: "+ readableFileSize(getSize(folder))+ "\n";
         filesDisplay += "space unused: " + readableFileSize(cDrive.getUsableSpace()) + "\n\n";
-//        System.out.println("[0] Back to Main Menu");        
-//        do
-//        {
-//        Scanner scanIn = new Scanner(System.in);
-//        choice = scanIn.nextLine();
-//        }
-//        while(!"0".equals(choice));
-//        DisplayMainMenu();
+
         return filesDisplay;
     }
     

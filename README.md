@@ -37,4 +37,4 @@ Delete file: del (filename with extension)
 
 Duplicate file: dup (filename with extension) 
 
-Run C program: run (filename with extension)
+Run C or Java program: run (filename with extension)
