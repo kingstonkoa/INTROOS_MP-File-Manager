@@ -27,7 +27,7 @@ dir
 
 Edit file name: rename (filename with extension) (new filename w/o extension)
 
-Edit file extension: modifyext (filename with extension) (extension)
+Edit file extension: ext (filename with extension) (extension)
 
 Move file: move (filename with extension) (directory)
 
@@ -38,3 +38,5 @@ Delete file: del (filename with extension)
 Duplicate file: dup (filename with extension) 
 
 Run C or Java program: run (filename with extension)
+
+Clear cmd contents: cls

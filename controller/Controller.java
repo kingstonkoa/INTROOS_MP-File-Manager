@@ -81,23 +81,40 @@ public class Controller {
      */
     public String displayAllFiles() throws IOException
     {
+        String format = "%1$5s %2$-40s %3$-20s %3$-20s %3$-20s %3$-20s" ;
+        String someLine;
     	String filesDisplay = "";
         File folder = new File(directory);
         File[] listOfFiles = folder.listFiles();
         File cDrive = new File("c:");
         long totalSpace = cDrive.getTotalSpace();
         System.out.println(totalSpace);
-        filesDisplay += "Name\tDate Created\tDate Modified\tOwner\tSize\tPercentage\n";
+        filesDisplay += " " 
+                            + padString("Name",35)
+                            + padString("Date Created",30)
+                            + padString("Last Modified",30)
+                            + padString("Owner",30)
+                            + padString("Size",10)
+                            + padString("Percentage",30)
+                            + "\n"; 
         for (int i = 0; i < listOfFiles.length; i++) {
           if (listOfFiles[i].isFile()) {
             BasicFileAttributes attr = Files.readAttributes(listOfFiles[i].toPath(), BasicFileAttributes.class);
-            filesDisplay += ""+listOfFiles[i].getName() 
-                                + "\t" + attr.creationTime()
-                                + "\t" + attr.lastModifiedTime() 
-                                + "\t" + Files.getOwner(listOfFiles[i].toPath()) 
-                                + "\t" + readableFileSize(attr.size())
-                                + "\t" + String.format("%f", getPercentage(attr.size(), totalSpace)) + "%"
-            					+ "\n\n";
+            filesDisplay += " " 
+                            + padString(listOfFiles[i].getName(),35)
+                            + padString(attr.creationTime().toString(),30)
+                            + padString(attr.lastModifiedTime().toString(),30)
+                            + padString(Files.getOwner(listOfFiles[i].toPath()).toString(),30)
+                            + padString(readableFileSize(attr.size()),10)
+                            + padString(String.format("%f", getPercentage(attr.size(), totalSpace)) + "%",30)
+                            + "\n"; 
+//            filesDisplay += ""+listOfFiles[i].getName() 
+//                                + "\t" + attr.creationTime()
+//                                + "\t" + attr.lastModifiedTime() 
+//                                + "\t" + Files.getOwner(listOfFiles[i].toPath()) 
+//                                + "\t" + readableFileSize(attr.size())
+//                                + "\t" + String.format("%f", getPercentage(attr.size(), totalSpace)) + "%"
+//            					+ "\n\n";
           } else if (listOfFiles[i].isDirectory()) {
             filesDisplay += "[" + (i+1) + "] " + "Folder: " + listOfFiles[i].getName() + "\n\n";
           }
@@ -136,6 +153,15 @@ public class Controller {
     float proportion = ((float) n) / ((float) total);
     return proportion * 100;
     }
+    
+    private String padString(String str, int n){
+    if(str.length() < n){
+        for(int j = str.length(); j < n; j++){
+            str += " ";
+        } // end for
+    } // end if
+    return str;
+} // end padString
 
     /**
      * Edits the file name of an existing file/folder.
