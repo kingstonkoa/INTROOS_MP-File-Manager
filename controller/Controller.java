@@ -279,16 +279,16 @@ public class Controller {
         	return false;
         } else {
         	Path source = listOfFiles[fileChosen].toPath();
-        	boolean createDir = new File(newDir).mkdir();
-        	if (createDir) {
-        		Path newdir = Paths.get(newDir+"/"+fileName);
-	    		try {
-	    			Files.move(source, newdir.resolve(source.getFileName()), REPLACE_EXISTING);
-	                return true;
-	            } catch (IOException ex) {
-	               return false;
-	            }
-        	} else return false;
+            try
+            {
+                Files.move(source, Paths.get(newDir).resolve(source.getFileName()), REPLACE_EXISTING);
+                System.out.println("file move successful");
+                return true;
+            } catch (IOException ex)
+            {
+                System.out.println("error in moving file");
+                return false;
+            }
         }
     }
 
@@ -311,20 +311,17 @@ public class Controller {
         	return false;
         } else {
         	Path source = listOfFiles[fileChosen].toPath();
-        	boolean createDir = new File(newDir).mkdir();
-        	if (createDir) {
-        		Path newdir = Paths.get(newDir+"/"+fileName);
-        		try
-              {
-      			Files.copy(source, newdir, StandardCopyOption.REPLACE_EXISTING);
-                  System.out.println("file copy successful");
-                  return true;
-              } catch (IOException ex)
-              {
-              	System.out.println("error in copying file");
-                 return false;
-              }
-        	} else return false;
+        	 try
+                    {
+                        Files.copy(source, Paths.get(newDir+"\\"+listOfFiles[fileChosen].getName()), StandardCopyOption.REPLACE_EXISTING);
+                        System.out.println("file copy successful");
+                        return true;
+                    } catch (IOException ex)
+                    {
+                        System.out.println("error in copying file");
+                        return false;
+                    }
+
         }
     }
 
@@ -363,7 +360,7 @@ public class Controller {
         	String source = listOfFiles[fileChosen].getAbsolutePath();
             String filePath = source.substring(0,source.lastIndexOf(File.separator));
             Path path = listOfFiles[fileChosen].toPath();
-            String target = filePath+"\\Copy of "+listOfFiles[fileChosen].getName();
+            String target = filePath+"\\Copy_of_"+listOfFiles[fileChosen].getName();
             if(Files.exists(path)) {
             	InputStream in = new FileInputStream(source);
                 OutputStream out = new FileOutputStream(target);
