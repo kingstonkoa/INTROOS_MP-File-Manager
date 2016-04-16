@@ -40,3 +40,5 @@ Duplicate file: dup (filename with extension)
 Run C or Java program: run (filename with extension)
 
 Clear cmd contents: cls
+
+Edit file contents: read (filename with extensions)

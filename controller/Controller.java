@@ -5,11 +5,13 @@
  */
 package controller;
 
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -24,6 +26,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import view.EditFrame;
 
 /**
  * Implements the various tasks of the File Manager:
@@ -434,6 +438,44 @@ public class Controller {
             return name.substring(name.lastIndexOf(".") + 1);
         } catch (Exception e) {
             return "";
+        }
+    }
+    
+    public String readFile(File file) throws IOException
+    {
+        String content = null;
+        FileReader reader = null;
+        try {
+            reader = new FileReader(file);
+            char[] chars = new char[(int) file.length()];
+            reader.read(chars);
+            content = new String(chars);
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(reader !=null){reader.close();}
+        }
+        return content;
+    }
+
+    public boolean editFileContents(String fileName) throws IOException
+    {
+        int fileChosen;
+        File folder = new File(directory);
+        File[] listOfFiles = folder.listFiles();
+             // check if file exists
+        fileChosen  = fileNameExists(listOfFiles, fileName);
+        if (fileChosen == -1) {
+        	return false;
+        } else {
+            JFrame frame = new JFrame ("Edit Frame");
+            frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+            frame.getContentPane().add (new EditFrame(listOfFiles[fileChosen],readFile(listOfFiles[fileChosen]), this));
+            frame.pack();
+            frame.setVisible (true);
+            
+            return true;
         }
     }
     

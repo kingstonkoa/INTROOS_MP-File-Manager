@@ -81,153 +81,168 @@ public class Mainframe extends JFrame {
 			public void keyTyped(KeyEvent e) {
 				String command = "";
 				if(e.getKeyChar() == KeyEvent.VK_ENTER){
-					command = txtCLI.getText().substring(txtCLI.getText().lastIndexOf('>')+1, txtCLI.getText().length()-1);
-					switch (command.split(" ")[0]) {
-						case "cd": 
-                                                        commandList.add(command);
-							if (controller.setDirectory(command.split(" ")[1])) {
-								commandOffset = controller.getDirectory() + ">";
-							} else {
-								txtCLI.append("Error: '" + command.split(" ")[1] + "' is not a valid file path.\n");
-							}
-							resetCommand();
-							txtCLI.append(commandOffset);
-                                                        pointer = commandList.size();
-							break;
-							
-						case "dir":
-                                                    commandList.add(command);
-							try {
-								txtCLI.append(controller.displayAllFiles());
-							} catch (IOException e1) {
-								e1.printStackTrace();
-							}
-							txtCLI.append(commandOffset);
-                                                        pointer = commandList.size();
-							break;
-						case "rename":
-                                                    commandList.add(command);
-							try {
-								String oldFileName = command.split(" ")[1];
-								String newFileName = command.split(" ")[2];
-								if (controller.editFileName(oldFileName, newFileName))
-									txtCLI.append("Successfully renamed file.\n");
-								else txtCLI.append("Error: Cannot find file or does not exist.\n");
-							} catch (IOException e1) {
-								txtCLI.append("Error: Cannot find file or does not exist.\n");
-							}
-							txtCLI.append(commandOffset);
-                                                        pointer = commandList.size();
-							break;
-							
-						case "ext":
-                                                    commandList.add(command);
-							try {
-								String fileName = command.split(" ")[1];
-								String extension = command.split(" ")[2];
-								if (controller.editFileExtension(fileName, extension))
-									txtCLI.append("Successfully changed file extension.\n");
-								else txtCLI.append("Error: Cannot find file or does not exist.\n");
-							} catch (IOException e1) {
-								txtCLI.append("Error: Cannot find file or does not exist.\n");
-							}
-							txtCLI.append(commandOffset);
-                                                        pointer = commandList.size();
-							break;
-							
-						case "move":
-                                                    commandList.add(command);
-							try {
-								String fileName = command.split(" ")[1];
-								String dir = command.split(" ")[2];
-								if (controller.moveFile(fileName, dir))
-									txtCLI.append("Successfully moved file.\n");
-								else txtCLI.append("Error: Cannot find file or cannot move file.\n");
-							} catch (IOException e1) {
-								txtCLI.append("Error: Cannot find file or cannot move file.\n");
-							}
-							txtCLI.append(commandOffset);
-                                                        pointer = commandList.size();
-							break;
-							
-						case "copy":
-                                                    commandList.add(command);
-							try {
-								String fileName = command.split(" ")[1];
-								String dir = command.split(" ")[2];
-								if (controller.copyFile(fileName, dir))
-									txtCLI.append("Successfully copied file.\n");
-								else txtCLI.append("Error: Cannot find file or cannot copy file.\n");
-							} catch (IOException e1) {
-								txtCLI.append("Error: Cannot find file or cannot copy file.\n");
-							}
-							txtCLI.append(commandOffset);
-                                                        pointer = commandList.size();
-							break;
-						
-						case "del":
-                                                    commandList.add(command);
-							try {
-								String fileName = command.split(" ")[1];
-								if (controller.deleteFile(fileName))
-									txtCLI.append("Successfully deleted file.\n");
-								else txtCLI.append("Error: Cannot find file or does not exist.\n");
-							} catch (IOException e1) {
-								txtCLI.append("Error: Cannot find file or does not exist.\n");
-							}
-							txtCLI.append(commandOffset);
-                                                        pointer = commandList.size();
-							break;
-							
-						case "dup":
-                                                    commandList.add(command);
-							try {
-								String fileName = command.split(" ")[1];
-								if (controller.duplicateFile(fileName))
-									txtCLI.append("Successfully duplicated file.\n");
-								else txtCLI.append("Error: Cannot find file or does not exist.\n");
-							} catch (IOException e1) {
-								txtCLI.append("Error: Cannot find file or does not exist.\n");
-							}
-							txtCLI.append(commandOffset);
-                                                        pointer = commandList.size();
-							break;
-						case "run":
-                                                    commandList.add(command);
-							try {
-								String fileName = command.split(" ")[1];
-								if (controller.runC(fileName))
-                                                                {
-                                                                    txtCLI.append(controller.getcContens()+"\n");
-                                                                    txtCLI.append("Successfully run.\n");
-                                                                }
-								else txtCLI.append("Error: Cannot find file or does not exist.\n");
-							} catch (IOException e1) {
-								txtCLI.append("Error: Cannot find file or does not exist.\n");
-							} catch (InterruptedException ex)
-                                        {
-                                            Logger.getLogger(Mainframe.class.getName()).log(Level.SEVERE, null, ex);
+                                    try {
+                                        command = txtCLI.getText().substring(txtCLI.getText().lastIndexOf('>')+1, txtCLI.getText().length()-1);
+                                        switch (command.split(" ")[0]) {
+                                            case "cd":
+                                                commandList.add(command);
+                                                if (controller.setDirectory(command.split(" ")[1])) {
+                                                    commandOffset = controller.getDirectory() + ">";
+                                                } else {
+                                                    txtCLI.append("Error: '" + command.split(" ")[1] + "' is not a valid file path.\n");
+                                                }
+                                                resetCommand();
+                                                txtCLI.append(commandOffset);
+                                                pointer = commandList.size();
+                                                break;
+                                                
+                                            case "dir":
+                                                commandList.add(command);
+                                                try {
+                                                    txtCLI.append(controller.displayAllFiles());
+                                                } catch (IOException e1) {
+                                                    e1.printStackTrace();
+                                                }
+                                                txtCLI.append(commandOffset);
+                                                pointer = commandList.size();
+                                                break;
+                                            case "rename":
+                                                commandList.add(command);
+                                                try {
+                                                    String oldFileName = command.split(" ")[1];
+                                                    String newFileName = command.split(" ")[2];
+                                                    if (controller.editFileName(oldFileName, newFileName))
+                                                        txtCLI.append("Successfully renamed file.\n");
+                                                    else txtCLI.append("Error: Cannot find file or does not exist.\n");
+                                                } catch (IOException e1) {
+                                                    txtCLI.append("Error: Cannot find file or does not exist.\n");
+                                                }
+                                                txtCLI.append(commandOffset);
+                                                pointer = commandList.size();
+                                                break;
+                                                
+                                            case "ext":
+                                                commandList.add(command);
+                                                try {
+                                                    String fileName = command.split(" ")[1];
+                                                    String extension = command.split(" ")[2];
+                                                    if (controller.editFileExtension(fileName, extension))
+                                                        txtCLI.append("Successfully changed file extension.\n");
+                                                    else txtCLI.append("Error: Cannot find file or does not exist.\n");
+                                                } catch (IOException e1) {
+                                                    txtCLI.append("Error: Cannot find file or does not exist.\n");
+                                                }
+                                                txtCLI.append(commandOffset);
+                                                pointer = commandList.size();
+                                                break;
+                                                
+                                            case "move":
+                                                commandList.add(command);
+                                                try {
+                                                    String fileName = command.split(" ")[1];
+                                                    String dir = command.split(" ")[2];
+                                                    if (controller.moveFile(fileName, dir))
+                                                        txtCLI.append("Successfully moved file.\n");
+                                                    else txtCLI.append("Error: Cannot find file or cannot move file.\n");
+                                                } catch (IOException e1) {
+                                                    txtCLI.append("Error: Cannot find file or cannot move file.\n");
+                                                }
+                                                txtCLI.append(commandOffset);
+                                                pointer = commandList.size();
+                                                break;
+                                                
+                                            case "copy":
+                                                commandList.add(command);
+                                                try {
+                                                    String fileName = command.split(" ")[1];
+                                                    String dir = command.split(" ")[2];
+                                                    if (controller.copyFile(fileName, dir))
+                                                        txtCLI.append("Successfully copied file.\n");
+                                                    else txtCLI.append("Error: Cannot find file or cannot copy file.\n");
+                                                } catch (IOException e1) {
+                                                    txtCLI.append("Error: Cannot find file or cannot copy file.\n");
+                                                }
+                                                txtCLI.append(commandOffset);
+                                                pointer = commandList.size();
+                                                break;
+                                                
+                                            case "del":
+                                                commandList.add(command);
+                                                try {
+                                                    String fileName = command.split(" ")[1];
+                                                    if (controller.deleteFile(fileName))
+                                                        txtCLI.append("Successfully deleted file.\n");
+                                                    else txtCLI.append("Error: Cannot find file or does not exist.\n");
+                                                } catch (IOException e1) {
+                                                    txtCLI.append("Error: Cannot find file or does not exist.\n");
+                                                }
+                                                txtCLI.append(commandOffset);
+                                                pointer = commandList.size();
+                                                break;
+                                                
+                                            case "dup":
+                                                commandList.add(command);
+                                                try {
+                                                    String fileName = command.split(" ")[1];
+                                                    if (controller.duplicateFile(fileName))
+                                                        txtCLI.append("Successfully duplicated file.\n");
+                                                    else txtCLI.append("Error: Cannot find file or does not exist.\n");
+                                                } catch (IOException e1) {
+                                                    txtCLI.append("Error: Cannot find file or does not exist.\n");
+                                                }
+                                                txtCLI.append(commandOffset);
+                                                pointer = commandList.size();
+                                                break;
+                                            case "run":
+                                                commandList.add(command);
+                                                try {
+                                                    String fileName = command.split(" ")[1];
+                                                    if (controller.runC(fileName))
+                                                    {
+                                                        txtCLI.append(controller.getcContens()+"\n");
+                                                        txtCLI.append("Successfully run.\n");
+                                                    }
+                                                    else txtCLI.append("Error: Cannot find file or does not exist.\n");
+                                                } catch (IOException e1) {
+                                                    txtCLI.append("Error: Cannot find file or does not exist.\n");
+                                                } catch (InterruptedException ex)
+                                                {
+                                                    Logger.getLogger(Mainframe.class.getName()).log(Level.SEVERE, null, ex);
+                                                }
+                                                txtCLI.append(commandOffset);
+                                                pointer = commandList.size();
+                                                break;
+                                            case "cls":
+                                                commandList.add(command);
+                                                txtCLI.setText("");
+                                                resetCommand();
+                                                pointer = commandList.size();
+                                                break;
+                                            case "read":
+                                                commandList.add(command);
+                                                String fileName = command.split(" ")[1];
+                                                if (controller.editFileContents(fileName))
+                                                {
+                                                    txtCLI.append("File ready to be edited \n");
+                                                }
+                                                else txtCLI.append("Error: Cannot find file or does not exist.\n");
+                                                txtCLI.append(commandOffset);
+                                                pointer = commandList.size();
+                                                break;
+                                                
+                                            case "exit":
+                                                commandList.add(command);
+                                                dispose();
+                                                pointer = commandList.size();
+                                                break;
+                                                
+                                            default: txtCLI.append("'" + command.split(" ")[0] + "' is not recognized as an internal or external command or operable program.\n");
+                                            resetCommand();
+                                            txtCLI.append(commandOffset);
                                         }
-							txtCLI.append(commandOffset);
-                                                        pointer = commandList.size();
-							break;
-                                                case "cls":
-                                                    commandList.add(command);
-                                                        txtCLI.setText("");
-                                                        resetCommand();
-                                                        pointer = commandList.size();
-                                                        break;
-							
-						case "exit":
-                                                    commandList.add(command);
-							dispose();
-                                                        pointer = commandList.size();
-							break;
-							
-						default: txtCLI.append("'" + command.split(" ")[0] + "' is not recognized as an internal or external command or operable program.\n");
-								resetCommand();
-								txtCLI.append(commandOffset);
-					}
+                                    } catch (IOException ex) {
+                                        Logger.getLogger(Mainframe.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
 		        } else if (e.getKeyChar() == KeyEvent.VK_BACK_SPACE && txtCLI.getCaretPosition() <= txtCLI.getText().length()) {
 		        	// TODO: fix this. avoid the user from deleting the display all the way!!!
                             }
